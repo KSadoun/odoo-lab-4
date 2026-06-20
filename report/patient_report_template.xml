@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_patient_status_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Patient Status Report</h2>
+                        <p><strong>Name:</strong> <span t-field="doc.first_name"/> <span t-field="doc.last_name"/></p>
+                        <p><strong>Email:</strong> <span t-field="doc.email"/></p>
+                        <p><strong>Status:</strong> <span t-field="doc.state"/></p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

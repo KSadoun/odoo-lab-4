@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_hms" model="ir.module.category">
+        <field name="name">Hospital Management System (HMS)</field>
+        <field name="description">
+            Helps manage hospital records, departments, and doctors.
+        </field>
+    </record>
+
+    <record id="hms_group_user" model="res.groups">
+        <name>User</name>
+        <field name="category_id" ref="module_category_hms"/>
+    </record>
+
+    <record id="hms_group_manager" model="res.groups">
+        <name>Manager</name>
+        <field name="category_id" ref="module_category_hms"/>
+        <field name="implied_ids" eval="[(4, ref('hms_group_user'))]"/>
+    </record>
+
+    <record id="hms_patient_user_rule" model="ir.rule">
+        <name>User: Own Patients Only</name>
+        <model_id ref="model_hms_patient"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms_group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="hms_patient_manager_rule" model="ir.rule">
+        <name>Manager: All Patients</name>
+        <model_id ref="model_hms_patient"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('hms_group_manager'))]"/>
+    </record>
+</odoo>
